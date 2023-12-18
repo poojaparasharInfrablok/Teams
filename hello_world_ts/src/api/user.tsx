@@ -18,3 +18,21 @@ export const login =
       }
     };
 
+    export const get_all_team =
+    (profileId: any, callback: Function) =>
+      async (dispatch: (arg0: { type: string; payload?: any }) => void) => {      
+        try {
+          let url = BASE_URL + `/partners/get-all-team?profileId=${profileId}`;
+          let access_token = get_access_token();
+          const { data } = await axios.post(url, {}, {
+            headers: { Authorization: `Bearer ${access_token}` },
+          });
+          if (data) {
+            callback(data);
+          }
+         
+        } catch (err: any) {
+          callback(err.response);         
+        }
+      };
+  

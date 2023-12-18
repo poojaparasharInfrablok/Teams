@@ -1,7 +1,8 @@
-import { Button, Stack, TextField } from '@mui/material'
+import { Box, Button, TextField, Typography } from '@mui/material'
 import { useDispatch } from "react-redux";
 import { login } from '../../api/user';
 import { useState } from 'react';
+import UserList from './List';
 
 const User = () => {
     const dispatch = useDispatch<any>();
@@ -9,6 +10,7 @@ const User = () => {
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
     const [gender, setGender] = useState("");
+    const [userListData, setUserListData] = useState<any>([]);
     const handleSubmit = () => {
         let body = {
             name: name,
@@ -17,13 +19,12 @@ const User = () => {
             otp: false,
         };
         console.log("api send data====", body)
-        console.log("phone data====", phone)
-        console.log("gender data====", gender)
         dispatch(
             login(body, (response: any) => {
                 if (response.statusCode >= 200 && response.statusCode < 300) {
                     if ("response" in response) {
                         console.log("api response ====", response)
+                        setUserListData(response)
                     }
                 } else {
                     console.log("api error===", response?.data?.message);
@@ -33,38 +34,40 @@ const User = () => {
     };
 
     return (
-        <Stack
+        <><Box
             component="form"
             sx={{
-                '& .MuiTextField-root': { m: 1, width: '25ch' },
+                '& .MuiTextField-root': { m: 1, width: 200 },
             }}
+
             noValidate
-            autoComplete="off"
+            autoComplete="on"
         >
             <TextField
                 id="outlined-required"
                 label="Name"
-                onChange={(event: any) => setName(event.target.value)}
-            />
+                onChange={(event: any) => setName(event.target.value)} />
             <TextField
                 id="outlined-required"
                 label="Email"
-                onChange={(event: any) => setEmail(event.target.value)}
-            />
+                onChange={(event: any) => setEmail(event.target.value)} />
             <TextField
                 id="outlined-password-input"
                 label="Phone"
-                onChange={(event: any) => setPhone(event.target.value)}
-            />
+                onChange={(event: any) => setPhone(event.target.value)} />
             <TextField
                 id="outlined-read-only-input"
                 label="Gender"
-                onChange={(event: any) => setGender(event.target.value)}
-            />
-            <Stack spacing={2} direction="row" sx={{ justifyItems: 'right' }}>
-                <Button variant="outlined" onClick={handleSubmit}>Submit</Button>
-            </Stack>
-        </Stack>
+                onChange={(event: any) => setGender(event.target.value)} />
+            <Button sx={{ mt: 1, width: 200, mb: 1, height: 50 }}
+                variant="outlined" onClick={handleSubmit}>Submit</Button>
+        </Box>
+            <Box sx={{ mt: 1, ml: 1, mr: 1 }}>
+                <Typography variant="h4">
+                    User List
+                </Typography>
+                <UserList userListData={userListData} />
+            </Box></>
     )
 }
 
