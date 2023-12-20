@@ -1,14 +1,12 @@
-import { TabContext, TabPanel, TabList } from "@mui/lab";
-import Tab from "@mui/material/Tab";
-import { Box, Typography } from '@mui/material';
 import React from 'react';
+import Tab from "@mui/material/Tab";
 import User from "../../TabForms/User";
 import UserList from "../../TabForms/List";
-import { Welcome } from "../../sample/Welcome";
-import config from "../../sample/lib/config";
 import LoginUser from "../../TabForms/LoginUser";
+import { Box, Typography } from '@mui/material';
+import { TabContext, TabPanel, TabList } from "@mui/lab";
+
 const Dashboard = () => {
-    const showFunction = Boolean(config.apiName);
     const [value, setValue] = React.useState('1');
     const handleChange = (event: React.SyntheticEvent, newValue: string) => {
         setValue(newValue);
@@ -36,10 +34,8 @@ const Dashboard = () => {
                 </TabPanel>
                 <TabPanel value="3">
                     <Box sx={{ mt: 1, ml: 1, mr: 1 }}>
-                        {/* <Welcome showFunction={showFunction} /> */}
                         <LoginUser />
                     </Box>
-
                 </TabPanel>
             </TabContext>
         </Box>

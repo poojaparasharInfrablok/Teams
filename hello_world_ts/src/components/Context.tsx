@@ -1,4 +1,4 @@
-import { TeamsUserCredential } from "@microsoft/teamsfx";
+import {   Channel, TeamsUserCredential } from "@microsoft/teamsfx";
 import { createContext } from "react";
 import { Theme } from "@fluentui/react-components";
 
@@ -10,4 +10,11 @@ export const TeamsFxContext = createContext<{
   theme: undefined,
   themeString: "",
   teamsUserCredential: undefined,
+});
+
+//const {teamsChannel}= useContext(BotBuilderCloudAdapter.Channel)
+export const TeamsFxChannelContext = createContext<{
+  teamschannel?:  TeamsBotInstallation.channel
+}>({
+  teamschannel: undefined,
 });
