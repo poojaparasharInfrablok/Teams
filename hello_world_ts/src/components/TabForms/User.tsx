@@ -39,7 +39,6 @@ const User = () => {
             sx={{
                 '& .MuiTextField-root': { m: 1, width: 200 },
             }}
-
             noValidate
             autoComplete="on"
         >
