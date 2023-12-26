@@ -16,6 +16,7 @@ import { TeamsFxContext } from "./Context";
 import config from "./sample/lib/config";
 import Login from "./Login/login";
 import Dashboard from "./Screen/Dashboard/Dashboard";
+import { useEffect } from "react";
 
 /**
  * The main app which handles the initialization and routing
@@ -26,6 +27,7 @@ export default function App() {
     initiateLoginEndpoint: config.initiateLoginEndpoint!,
     clientId: config.clientId!,
   });
+
   return (
     <TeamsFxContext.Provider value={{ theme, themeString, teamsUserCredential }}>
       <FluentProvider

@@ -14,7 +14,7 @@ export const TeamsFxContext = createContext<{
 
 //const {teamsChannel}= useContext(BotBuilderCloudAdapter.Channel)
 export const TeamsFxChannelContext = createContext<{
-  teamschannel?:  TeamsBotInstallation.channel
+  teamschannel?: Channel
 }>({
   teamschannel: undefined,
 });
