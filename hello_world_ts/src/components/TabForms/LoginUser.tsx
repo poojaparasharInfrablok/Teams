@@ -1,11 +1,9 @@
 import { useData } from '@microsoft/teamsfx-react';
 import { Stack, Typography } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
-import { TeamsFxChannelContext, TeamsFxContext } from '../Context';
-import {  Channel } from '@microsoft/teamsfx';
+import { TeamsFxContext } from '../Context';
 
 const LoginUser = () => {
-    const teamsChannel = useContext(TeamsFxChannelContext)
     const { teamsUserCredential } = useContext(TeamsFxContext);
     const [loginUserName, setLoginUserName] = useState("");
     const [loginUserEmail, setLoginUserEmail] = useState("");
@@ -13,9 +11,6 @@ const LoginUser = () => {
     const { loading, data, error } = useData(async () => {
         if (teamsUserCredential) {
             const userInfo = await teamsUserCredential.getUserInfo();
-            const teamsChannelInfo= Channel ;
-            console.log("team user Info=====", userInfo);
-            console.log("user channel Info=====", teamsChannelInfo.name);
             return userInfo;
         }
     });
@@ -24,7 +19,7 @@ const LoginUser = () => {
         setLoginUserEmail(loading || error ? "" : data!.preferredUserName);
     }, [loading, data, error])
 
-  
+
 
     return (
         <Stack className="thead">
