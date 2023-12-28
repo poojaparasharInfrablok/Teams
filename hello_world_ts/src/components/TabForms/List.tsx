@@ -1,18 +1,46 @@
 
 import { Typography, Divider, Box, Stack, Button } from '@mui/material'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { get_all_teams_member } from '../../api/msApi/member';
 import { get_all_teams } from '../../api/msApi/teams';
+import { Get_access_token } from '../../config/accessToken';
+import { Client } from '@microsoft/microsoft-graph-client';
 
-const UserList = ({ userListData }: any) => {
+const UserList = () => {
   const dispatch = useDispatch<any>();
+  const [userListData, setuserListData] = useState([]);
 
-  const getAllteams = () => {
+  // const getAllteams = () => {
+
+  //   const graphClient = Client.init({
+  //     authProvider: (done: any) => {
+  //       // Use your OAuth2 token here
+  //       done(null, access_token);
+  //     }
+  //   });
+
+  //   // Replace {team-id} with the actual team ID
+  //   graphClient.api(`v1.0/me/joinedTeams`).get().then((response: any) => {
+  //     //   const teamMembers = response.value;
+  //     // Process team members here
+  //     console.log('Team Members:=====', response);
+  //   })
+  //     .catch((error: any) => {
+  //       console.error('Error fetching team members:', error);
+  //     });
+  // };
+
+  useEffect(() => {
+    // let actoken = Get_access_token();
+    // setAccessToken(actoken)
+    // console.log("list access_token=====", actoken)
+   // getAllteams();
     dispatch(
       get_all_teams((response: any) => {
+        console.log("api response ====", response)
         if (response.statusCode >= 200 && response.statusCode < 300) {
           if ("response" in response) {
+            setuserListData(response)
             console.log("api response ====", response)
           }
         } else {
@@ -20,11 +48,7 @@ const UserList = ({ userListData }: any) => {
         }
       })
     );
-  };
-
-  useEffect(() => {
-    getAllteams();
-  }, [])
+  }, [dispatch])
 
   return (
     <Stack

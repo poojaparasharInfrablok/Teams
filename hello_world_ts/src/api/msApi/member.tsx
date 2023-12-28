@@ -1,6 +1,6 @@
 import { Get_access_token } from "../../config/accessToken";
+import { Client } from '@microsoft/microsoft-graph-client';
 
-const { Client } = require('@microsoft/microsoft-graph-client');
 export const get_all_teams_member =
     (callback: Function) =>
         async (dispatch: (arg0: { type: string; payload?: any }) => void) => {

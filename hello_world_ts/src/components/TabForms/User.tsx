@@ -65,7 +65,7 @@ const User = () => {
                 <Typography variant="h4">
                     User List
                 </Typography>
-                <UserList userListData={userListData} />
+                {/* <UserList userListData={userListData} /> */}
             </Box></>
     )
 }
