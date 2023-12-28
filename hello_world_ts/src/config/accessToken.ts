@@ -11,7 +11,6 @@ export const Get_access_token: any = () => {
             userAccessToken = await teamsUserCredential;
             console.log("teamsUserCredential=====", teamsUserCredential)
             console.log("user Access Token=====", userAccessToken?.ssoToken?.token)
-            localStorage.setItem("localAccessToken", userAccessToken?.ssoToken?.token)
             return  userAccessToken?.ssoToken?.token
         }
 
