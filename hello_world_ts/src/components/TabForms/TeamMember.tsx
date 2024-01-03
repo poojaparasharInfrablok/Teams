@@ -1,15 +1,26 @@
 import { Box, Divider, Stack, Typography } from '@mui/material'
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from 'react';
+import { useContext } from 'react';
+import { TeamsFxContext } from '../../components/Context';
 import { get_all_teams_member } from '../../api/msApi/member';
 
 const TeamMember = (memberData: any) => {
     const dispatch = useDispatch<any>();
+    const teamsUserCredential = useContext(TeamsFxContext);
+    const [access_token, setaccess_token] = useState("")
     console.log("memberData====", memberData)
     useEffect(() => {
+        if (teamsUserCredential) {
+            let token: any = teamsUserCredential;
+
+            setaccess_token(token?.ssoToken?.token);
+        }
         dispatch(
-            get_all_teams_member((response: any) => {
+            get_all_teams_member(access_token, (response: any) => {
                 if (response) {
+
+                    console.log("AccessToken =====", access_token)
                     //setuserListData(response)
                     console.log("api response ====", response)
                 } else {
@@ -41,7 +52,7 @@ const TeamMember = (memberData: any) => {
                 </Stack>
                 <Divider className="thead"></Divider>
 
-                {/* {memberData?.filter((item: any) => (
+                {memberData?.filter((item: any) => (
                     <Stack
                         key={item?.id}
                         direction={"row"}
@@ -91,7 +102,7 @@ const TeamMember = (memberData: any) => {
                         </Stack>
 
                     </Stack>
-                ))} */}
+                ))}
 
             </Box>
         </Stack>

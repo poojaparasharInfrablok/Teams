@@ -8,11 +8,11 @@ import TeamMember from './TeamMember';
 const UserTeamList = () => {
   const dispatch = useDispatch<any>();
   const [userListData, setuserListData] = useState([]);
+  const [access_token, setaccess_token] = useState("")
   const [memberData, setMemberData] = useState<any>();
   useEffect(() => {
-
     dispatch(
-      get_all_teams((response: any) => {
+      get_all_teams(access_token, (response: any) => {
         if (response) {
           setuserListData(response)
           console.log("api response ====", response)
@@ -138,7 +138,7 @@ const UserTeamList = () => {
             </Stack>
           </Stack>
         ))}
-        <TeamMember memberData={memberData} />
+        {memberData ? <TeamMember memberData={memberData} /> : ""}
       </Box>
     </Stack>
   )
