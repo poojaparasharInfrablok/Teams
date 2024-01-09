@@ -5,7 +5,7 @@ import { useData } from "@microsoft/teamsfx-react";
 
 
  export const Get_access_token = () => {
-    const teamsUserCredential = useContext(TeamsFxContext);
+    const {teamsUserCredential} = useContext(TeamsFxContext);
     let userAccessToken: any;
     if (teamsUserCredential) {
         userAccessToken = teamsUserCredential;
