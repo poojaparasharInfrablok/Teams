@@ -30,7 +30,7 @@ const Dashboard = () => {
                     <Box sx={{ mt: 1, ml: 1, mr: 1 }}> <Typography variant="h4" >
                         Team Member
                     </Typography>
-                        {/* <TeamMember /> */}
+                        <TeamMember />
                     </Box>
 
                 </TabPanel>

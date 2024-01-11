@@ -17,6 +17,7 @@ import config from "./sample/lib/config";
 import Login from "./Login/login";
 import Dashboard from "./Screen/Dashboard/Dashboard";
 import { useEffect } from "react";
+import TeamMember from "./TabForms/TeamMember";
 
 /**
  * The main app which handles the initialization and routing
@@ -52,7 +53,7 @@ export default function App() {
               <Route path="/termsofuse" element={<TermsOfUse />} />
               <Route path="/tab" element={<Tab />} />
               <Route path="/login" element={<Login />} />
-              {/* <Route path="*" element={<Navigate to={"/tab"} />}></Route> */}
+              <Route path="/teammember" element={<TeamMember />}></Route>
               <Route path="*" element={<Navigate to={"/Dashboard"} />}></Route>
               <Route path="/Dashboard" element={<Dashboard />} />
             </Routes>

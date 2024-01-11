@@ -1,18 +1,29 @@
 
-import { Typography, Divider, Box, Stack, Button } from '@mui/material'
+import { Typography, Divider, Box, Stack } from '@mui/material'
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useContext } from 'react';
+import { TeamsFxContext } from '../../components/Context';
 import { get_all_teams } from '../../api/msApi/teams';
-import TeamMember from './TeamMember';
+import { useData } from '@microsoft/teamsfx-react';
+import { useNavigate } from 'react-router-dom';
 
 const UserTeamList = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch<any>();
+  const { teamsUserCredential } = useContext(TeamsFxContext);
   const [userListData, setuserListData] = useState([]);
-  const [access_token, setaccess_token] = useState("")
-  const [memberData, setMemberData] = useState<any>();
+
+  const { data } = useData(async () => {
+    if (teamsUserCredential) {
+      const token = teamsUserCredential.getToken("");
+      return token;
+    }
+  });
   useEffect(() => {
+    console.log("token before api====", data)
     dispatch(
-      get_all_teams(access_token, (response: any) => {
+      get_all_teams(data?.token, (response: any) => {
         if (response) {
           setuserListData(response)
           console.log("api response ====", response)
@@ -21,10 +32,10 @@ const UserTeamList = () => {
         }
       })
     );
-  }, [dispatch])
+  }, [dispatch, data])
 
   const handleGetTeamMember = (item: any) => {
-    setMemberData(item);
+      navigate("/teammember", { state: { teamMemberDetail: item } });
   }
   return (
     <Stack
@@ -138,7 +149,7 @@ const UserTeamList = () => {
             </Stack>
           </Stack>
         ))}
-        {memberData ? <TeamMember memberData={memberData} /> : ""}
+        {/* {memberData ? <TeamMember memberData={memberData} /> : ""} */}
       </Box>
     </Stack>
   )
