@@ -42,6 +42,10 @@ const TeamMember = () => {
     const handleClose = () => {
         setOpen(false);
     };
+    
+    const handleMessageSend = () => {
+        setOpen(false);
+    };
     return (
         <><Stack
             id="user role column"
@@ -164,7 +168,7 @@ const TeamMember = () => {
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handleClose}>Cancel</Button>
-                        <Button type="submit">Send</Button>
+                        <Button type="submit" onClick={handleMessageSend}>Send</Button>
                     </DialogActions>
                 </Dialog>
             </Box></>
