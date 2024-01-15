@@ -44,11 +44,17 @@ const TeamMember = () => {
                 {
                     "@odata.type": "#microsoft.graph.aadUserConversationMember",
                     "roles": [
+                        "owner"
+                    ],
+                    "user@odata.bind": "https://graph.microsoft.com/v1.0/users('68cb6a0e-5f9a-4d37-b539-4e680ab2f368')"
+                },
+                 {
+                    "@odata.type": "#microsoft.graph.aadUserConversationMember",
+                    "roles": [
                     ],
                     "user@odata.bind": `https://graph.microsoft.com/v1.0/users(${toChatMemberDetail?.userId})`
                 }
-            ],
-            "topic": formData.Message
+            ]
         }
         console.log("chat body===", chatbody);
         dispatch(
