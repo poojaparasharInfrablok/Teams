@@ -18,7 +18,7 @@ const Dashboard = () => {
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <TabList onChange={handleChange} aria-label="lab API tabs example">
                         <Tab label="User Team List" value="1" />
-                        <Tab label="Team Member" value="2" />
+                        {/* <Tab label="Team Member" value="2" /> */}
                         <Tab label="Login User Info" value="3" />
                     </TabList>
                 </Box>
@@ -26,14 +26,14 @@ const Dashboard = () => {
                     <Box sx={{ mt: 1, ml: 1, mr: 1 }}><UserTeamList /></Box>
                 </TabPanel>
 
-                <TabPanel value="2">
+                {/* <TabPanel value="2">
                     <Box sx={{ mt: 1, ml: 1, mr: 1 }}> <Typography variant="h4" >
                         Team Member
                     </Typography>
                         <TeamMember />
                     </Box>
 
-                </TabPanel>
+                </TabPanel> */}
                 <TabPanel value="3">
                     <Box sx={{ mt: 1, ml: 1, mr: 1 }}>
                         <LoginUser />

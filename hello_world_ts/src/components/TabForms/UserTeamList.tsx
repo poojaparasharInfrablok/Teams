@@ -35,7 +35,7 @@ const UserTeamList = () => {
   }, [dispatch, data])
 
   const handleGetTeamMember = (item: any) => {
-      navigate("/teammember", { state: { teamMemberDetail: item } });
+      navigate("/teammember", { state: { teamDetail: item } });
   }
   return (
     <Stack

@@ -1,30 +1,20 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Stack, TextField, Typography } from '@mui/material'
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Stack, TextField, Typography } from '@mui/material'
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from 'react';
-import { useContext } from 'react';
-import { TeamsFxContext } from '../../components/Context';
-import { get_all_teams_member } from '../../api/msApi/member';
-import { useData } from '@microsoft/teamsfx-react';
+import { chat_with_team_member, get_all_teams_member } from '../../api/msApi/member';
 import { useLocation } from 'react-router-dom';
 
 const TeamMember = () => {
     const dispatch = useDispatch<any>();
     const location = useLocation();
-    let { teamMemberDetail } = location.state;
-    const { teamsUserCredential } = useContext(TeamsFxContext);
+    let { teamDetail } = location.state ? location?.state : "";
     const [teamMemberData, setTeamMemberData] = useState([]);
-    const [senderEmail, setSenderEmail] = useState();
+    const [toChatMemberDetail, setToChatMemberDetail] = useState<any>();
     const [open, setOpen] = useState(false);
 
-    const access_token = useData(async () => {
-        if (teamsUserCredential) {
-            let token: any = teamsUserCredential.getToken("");
-            return token;
-        }
-    });
     useEffect(() => {
         dispatch(
-            get_all_teams_member(teamMemberDetail?.id, access_token, (response: any) => {
+            get_all_teams_member(teamDetail?.id, (response: any) => {
                 if (response) {
                     setTeamMemberData(response)
                 } else {
@@ -35,16 +25,41 @@ const TeamMember = () => {
     }, [dispatch])
 
     const handleClickOpen = (item: any) => {
+        console.log("chat item=====", item)
         setOpen(true);
-        setSenderEmail(item?.email)
+        setToChatMemberDetail(item)
     };
 
     const handleClose = () => {
         setOpen(false);
     };
-    
-    const handleMessageSend = () => {
+
+    const handleMessageSend = (formData: any) => {
         setOpen(false);
+        console.log("formData===", formData);
+
+        let chatbody = {
+            "chatType": "oneOnOne",
+            "members": [
+                {
+                    "@odata.type": "#microsoft.graph.aadUserConversationMember",
+                    "roles": [
+                    ],
+                    "user@odata.bind": `https://graph.microsoft.com/v1.0/users(${toChatMemberDetail?.userId})`
+                }
+            ],
+            "topic": formData.Message
+        }
+        console.log("chat body===", chatbody);
+        dispatch(
+            chat_with_team_member(chatbody, (response: any) => {
+                if (response) {
+                    setTeamMemberData(response)
+                } else {
+                    console.log("api error===", response);
+                }
+            })
+        );
     };
     return (
         <><Stack
@@ -68,7 +83,7 @@ const TeamMember = () => {
                 </Stack>
                 <Divider className="thead"></Divider>
 
-                {teamMemberData?.map((item: any) => (
+                {teamMemberData.length > 0 ? teamMemberData?.map((item: any) => (
                     <Stack
                         key={item?.id}
                         direction={"row"}
@@ -122,12 +137,12 @@ const TeamMember = () => {
                             </Button>
                         </Stack>
                     </Stack>
-                ))}
+                )) : "no record found"}
 
             </Box>
         </Stack>
-        <Box id="user-role and action container" sx={{ width: 600,height:600}}  >
-                <Dialog                 
+            <Box id="user-role and action container" sx={{ width: 600, height: 600 }}  >
+                <Dialog
                     open={open}
                     onClose={handleClose}
                     PaperProps={{
@@ -136,8 +151,7 @@ const TeamMember = () => {
                             event.preventDefault();
                             const formData = new FormData(event.currentTarget);
                             const formJson = Object.fromEntries((formData as any).entries());
-                            const email = formJson.email;
-                            console.log(email);
+                            handleMessageSend(formJson);
                             handleClose();
                         },
                     }}
@@ -145,7 +159,6 @@ const TeamMember = () => {
                     <DialogTitle>Send Message to user</DialogTitle>
                     <DialogContent>
                         <TextField
-                        
                             autoFocus
                             required
                             margin="dense"
@@ -155,7 +168,7 @@ const TeamMember = () => {
                             type="email"
                             fullWidth
                             variant="standard"
-                            value={senderEmail} />
+                            value={toChatMemberDetail?.email} />
                         <TextField
                             autoFocus
                             required
@@ -168,7 +181,8 @@ const TeamMember = () => {
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handleClose}>Cancel</Button>
-                        <Button type="submit" onClick={handleMessageSend}>Send</Button>
+                        {/* <Button type="submit" onClick={handleMessageSend}>Send</Button> */}
+                        <Button type="submit" >Send</Button>
                     </DialogActions>
                 </Dialog>
             </Box></>
