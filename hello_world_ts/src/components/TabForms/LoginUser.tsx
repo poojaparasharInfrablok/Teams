@@ -10,7 +10,8 @@ const LoginUser = () => {
 
     const { loading, data, error } = useData(async () => {
         if (teamsUserCredential) {
-            const userInfo = await teamsUserCredential.getUserInfo();            
+            const userInfo = await teamsUserCredential.getUserInfo();     
+            console.log("userInfo====",userInfo)       
             return userInfo;
         }
     });

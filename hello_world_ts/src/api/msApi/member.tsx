@@ -31,8 +31,28 @@ export const chat_with_team_member =
                 }
             });
             graphClient.api(`chats`).post(chatbody).then((response: any) => {
-                console.log("chats api response=====",response)
-                callback(response?.value);
+                console.log("chats api response=====", response)
+                callback(response);
+
+            })
+                .catch((error: any) => {
+                    console.error('Error fetching team members:', error);
+                });
+
+        }
+
+
+export const send_message_to_team_member =
+    (messageBody: any, chat_id: any, callback: Function) =>
+        async (dispatch: (arg0: { type: string; payload?: any }) => void) => {
+            const graphClient = Client.init({
+                authProvider: (done: any) => {
+                    done(null, Access_Token);
+                }
+            });
+            graphClient.api(`chats/${chat_id}/messages`).post(messageBody).then((response: any) => {
+                console.log("message api response=====", response)
+                callback(response);
 
             })
                 .catch((error: any) => {

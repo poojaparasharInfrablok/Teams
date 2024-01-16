@@ -1,17 +1,26 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Stack, TextField, Typography } from '@mui/material'
 import { useDispatch } from "react-redux";
-import { useEffect, useState } from 'react';
-import { chat_with_team_member, get_all_teams_member } from '../../api/msApi/member';
+import { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { TeamsFxContext } from '../Context';
+import { useData } from '@microsoft/teamsfx-react';
+import { chat_with_team_member, get_all_teams_member, send_message_to_team_member } from '../../api/msApi/member';
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Stack, TextField, Typography } from '@mui/material'
 
 const TeamMember = () => {
     const dispatch = useDispatch<any>();
     const location = useLocation();
-    let { teamDetail } = location.state ? location?.state : "";
+    const { teamDetail } = location.state ? location?.state : "";
+    const { teamsUserCredential } = useContext(TeamsFxContext);
+    const [open, setOpen] = useState(false);
     const [teamMemberData, setTeamMemberData] = useState([]);
     const [toChatMemberDetail, setToChatMemberDetail] = useState<any>();
-    const [open, setOpen] = useState(false);
 
+    const loggedInUserDetail = useData(async () => {
+        if (teamsUserCredential) {
+            const userInfo = await teamsUserCredential.getUserInfo();
+            return userInfo;
+        }
+    });
     useEffect(() => {
         dispatch(
             get_all_teams_member(teamDetail?.id, (response: any) => {
@@ -22,7 +31,7 @@ const TeamMember = () => {
                 }
             })
         );
-    }, [dispatch, teamDetail?.id])
+    }, [dispatch, teamDetail?.id,])
 
     const handleClickOpen = (item: any) => {
         console.log("chat item=====", item)
@@ -36,8 +45,6 @@ const TeamMember = () => {
 
     const handleMessageSend = (formData: any) => {
         setOpen(false);
-        console.log("formData===", formData);
-
         let chatbody = {
             "chatType": "oneOnOne",
             "members": [
@@ -46,21 +53,32 @@ const TeamMember = () => {
                     "roles": [
                         "owner"
                     ],
-                    "user@odata.bind": "https://graph.microsoft.com/v1.0/users('68cb6a0e-5f9a-4d37-b539-4e680ab2f368')"
+                    "user@odata.bind": `https://graph.microsoft.com/v1.0/users('${loggedInUserDetail?.data?.objectId}')`
                 },
                 {
                     "@odata.type": "#microsoft.graph.aadUserConversationMember",
-                    "roles": [
-                    ],
-                    "user@odata.bind": `https://graph.microsoft.com/v1.0/users(${toChatMemberDetail?.userId})`
+                    "roles": ["owner"],
+                    "user@odata.bind": `https://graph.microsoft.com/v1.0/users('${toChatMemberDetail?.userId}')`
                 }
             ]
         }
-        console.log("chat body===", chatbody);
         dispatch(
             chat_with_team_member(chatbody, (response: any) => {
-                if (response) {
-                    setTeamMemberData(response)
+                if (response !== null) {
+                    let chat_id = response?.id;
+                    let messageBody = {
+                        "body": {
+                            "content": formData.message
+                        }
+                    }
+                    dispatch(send_message_to_team_member(messageBody, chat_id, (msgresponse: any) => {
+                        if (msgresponse) {
+                            console.log("message sent successfully!!!!!")
+                        }
+                        else {
+                            console.log("api error===", msgresponse);
+                        }
+                    }))
                 } else {
                     console.log("api error===", response);
                 }
@@ -170,7 +188,7 @@ const TeamMember = () => {
                             margin="dense"
                             id="name"
                             name="email"
-                            label="Email Address"
+                            label="To"
                             type="email"
                             fullWidth
                             variant="standard"
@@ -179,8 +197,8 @@ const TeamMember = () => {
                             autoFocus
                             required
                             margin="dense"
-                            id="name"
-                            name="Message"
+                            id="message"
+                            name="message"
                             label="Message"
                             fullWidth
                             variant="standard" />
