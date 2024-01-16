@@ -22,7 +22,7 @@ const TeamMember = () => {
                 }
             })
         );
-    }, [dispatch])
+    }, [dispatch, teamDetail?.id])
 
     const handleClickOpen = (item: any) => {
         console.log("chat item=====", item)
@@ -48,7 +48,7 @@ const TeamMember = () => {
                     ],
                     "user@odata.bind": "https://graph.microsoft.com/v1.0/users('68cb6a0e-5f9a-4d37-b539-4e680ab2f368')"
                 },
-                 {
+                {
                     "@odata.type": "#microsoft.graph.aadUserConversationMember",
                     "roles": [
                     ],
