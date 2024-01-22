@@ -64,19 +64,16 @@ const TeamMember = () => {
         dispatch(
             chat_with_team_member(chatbody, (response: any) => {
                 if (response !== null) {
-                    console.clear()
-                    console.log("chat api response=====",toChatMemberDetail)
                     let chat_id = response?.id;
-                    let chatMemberName = toChatMemberDetail?.displayName;
                     let messageBody = {
                         "subject": null,
                         "body": {
                             "contentType": "html",
-                            "content": "<attachment id=\"74d20c7f34aa4a7fb74e2b30004247c5\"></attachment>"
+                            "content": `<attachment id=\"${chat_id}\"></attachment>`
                         },
                         "attachments": [
                             {
-                                "id": "74d20c7f34aa4a7fb74e2b30004247c5",
+                                "id": `${chat_id}`,
                                 "contentType": "application/vnd.microsoft.card.thumbnail",
                                 "contentUrl": null,
                                 "content": `{\r\n  \"title\": \"Hello, ${toChatMemberDetail?.displayName}\",\r\n  \"subtitle\": \"<h3>This message is sent to you by  ${loggedInUserDetail?.data?.displayName}</h3>\",\r\n  \"text\": \"${formData.message} <br>\"}`,
