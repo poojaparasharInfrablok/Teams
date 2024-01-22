@@ -5,6 +5,7 @@ import UserTeamList from "../../TabForms/UserTeamList";
 import LoginUser from "../../TabForms/LoginUser";
 import { Box, Typography } from '@mui/material';
 import { TabContext, TabPanel, TabList } from "@mui/lab";
+import ChatMessage from '../Home/chatmessage';
 
 const Dashboard = () => {
     const [value, setValue] = React.useState('1');
@@ -17,15 +18,18 @@ const Dashboard = () => {
             <TabContext value={value}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <TabList onChange={handleChange} aria-label="lab API tabs example">
-                        <Tab label="User Team List" value="1" />
+                    <Tab label="Send Message" value="1" />
+                        {/* <Tab label="User Team List" value="1" /> */}
                         {/* <Tab label="Team Member" value="2" /> */}
-                        <Tab label="Login User Info" value="3" />
+                        {/* <Tab label="Login User Info" value="3" /> */}
                     </TabList>
                 </Box>
-                <TabPanel value="1">
+                {/* <TabPanel value="1">
                     <Box sx={{ mt: 1, ml: 1, mr: 1 }}><UserTeamList /></Box>
+                </TabPanel> */}
+                <TabPanel value="1">
+                    <Box sx={{ mt: 1, ml: 1, mr: 1 }}><ChatMessage /></Box>
                 </TabPanel>
-
                 {/* <TabPanel value="2">
                     <Box sx={{ mt: 1, ml: 1, mr: 1 }}> <Typography variant="h4" >
                         Team Member
@@ -34,11 +38,11 @@ const Dashboard = () => {
                     </Box>
 
                 </TabPanel> */}
-                <TabPanel value="3">
+                {/* <TabPanel value="3">
                     <Box sx={{ mt: 1, ml: 1, mr: 1 }}>
                         <LoginUser />
                     </Box>
-                </TabPanel>
+                </TabPanel> */}
             </TabContext>
         </Box>
     );
