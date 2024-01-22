@@ -31,7 +31,6 @@ export const chat_with_team_member =
                 }
             });
             graphClient.api(`chats`).post(chatbody).then((response: any) => {
-                console.log("chats api response=====", response)
                 callback(response);
 
             })
@@ -50,7 +49,7 @@ export const send_message_to_team_member =
                     done(null, Access_Token);
                 }
             });
-            graphClient.api(`chats/${chat_id}/messages`).post(messageBody).then((response: any) => {
+            graphClient.api(`chats/${chat_id}/messages`).post(JSON.stringify(messageBody)).then((response: any) => {
                 console.log("message api response=====", response)
                 callback(response);
 

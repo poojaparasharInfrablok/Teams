@@ -34,7 +34,6 @@ const TeamMember = () => {
     }, [dispatch, teamDetail?.id,])
 
     const handleClickOpen = (item: any) => {
-        console.log("chat item=====", item)
         setOpen(true);
         setToChatMemberDetail(item)
     };
@@ -66,11 +65,48 @@ const TeamMember = () => {
             chat_with_team_member(chatbody, (response: any) => {
                 if (response !== null) {
                     let chat_id = response?.id;
+                    let adaptiveCard = JSON.stringify({
+                        "type": "AdaptiveCard",
+                        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                        "version": "1.5",
+                        "contentType": "application/vnd.microsoft.card.adaptive",
+                        "body": [
+                            {
+                                "type": "Container",
+                                "items":
+                                    [{
+                                        "type": "TextBlock",
+                                        "text": `Hello, ${response?.displayName}`,
+                                        "size": "large"
+                                    },
+                                    {
+                                        "type": "TextBlock",
+                                        "text": `This message is sent to you by ${loggedInUserDetail?.data?.displayName}`
+                                    },
+                                    {
+                                        "type": "TextBlock",
+                                        "text": formData.message
+                                    },]
+                            }
+                        ],
+                    });
                     let messageBody = {
                         "body": {
-                            "content": formData.message
+                            contentType: 'application/vnd.microsoft.card.adaptive',
+                            content: adaptiveCard
+                            //"content": formData.message
                         }
                     }
+                    const teamsMessage = {
+                        to: chat_id,
+                        message: {
+                            contentType: 'application/vnd.microsoft.card.adaptive',
+                            content: adaptiveCard,
+                        },
+                        "body": {
+                            "content": adaptiveCard
+                        }
+                    };
                     dispatch(send_message_to_team_member(messageBody, chat_id, (msgresponse: any) => {
                         if (msgresponse) {
                             console.log("message sent successfully!!!!!")
