@@ -64,49 +64,29 @@ const TeamMember = () => {
         dispatch(
             chat_with_team_member(chatbody, (response: any) => {
                 if (response !== null) {
+                    console.clear()
+                    console.log("chat api response=====",toChatMemberDetail)
                     let chat_id = response?.id;
-                    let adaptiveCard = JSON.stringify({
-                        "type": "AdaptiveCard",
-                        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-                        "version": "1.5",
-                        "contentType": "application/vnd.microsoft.card.adaptive",
-                        "body": [
-                            {
-                                "type": "Container",
-                                "items":
-                                    [{
-                                        "type": "TextBlock",
-                                        "text": `Hello, ${response?.displayName}`,
-                                        "size": "large"
-                                    },
-                                    {
-                                        "type": "TextBlock",
-                                        "text": `This message is sent to you by ${loggedInUserDetail?.data?.displayName}`
-                                    },
-                                    {
-                                        "type": "TextBlock",
-                                        "text": formData.message
-                                    },]
-                            }
-                        ],
-                    });
+                    let chatMemberName = toChatMemberDetail?.displayName;
                     let messageBody = {
+                        "subject": null,
                         "body": {
-                            contentType: 'application/vnd.microsoft.card.adaptive',
-                            content: adaptiveCard
-                            //"content": formData.message
-                        }
-                    }
-                    const teamsMessage = {
-                        to: chat_id,
-                        message: {
-                            contentType: 'application/vnd.microsoft.card.adaptive',
-                            content: adaptiveCard,
+                            "contentType": "html",
+                            "content": "<attachment id=\"74d20c7f34aa4a7fb74e2b30004247c5\"></attachment>"
                         },
-                        "body": {
-                            "content": adaptiveCard
-                        }
-                    };
+                        "attachments": [
+                            {
+                                "id": "74d20c7f34aa4a7fb74e2b30004247c5",
+                                "contentType": "application/vnd.microsoft.card.thumbnail",
+                                "contentUrl": null,
+                                "content": `{\r\n  \"title\": \"Hello, ${toChatMemberDetail?.displayName}\",\r\n  \"subtitle\": \"<h3>This message is sent to you by  ${loggedInUserDetail?.data?.displayName}</h3>\",\r\n  \"text\": \"${formData.message} <br>\"}`,
+                                "name": null,
+                                "thumbnailUrl": null
+                            }
+                        ]
+
+                    }
+
                     dispatch(send_message_to_team_member(messageBody, chat_id, (msgresponse: any) => {
                         if (msgresponse) {
                             console.log("message sent successfully!!!!!")
