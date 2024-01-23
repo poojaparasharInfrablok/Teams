@@ -30,8 +30,8 @@
         {
             "entityId": "index",
             "name": "Personal Tab",
-            "contentUrl": "${{TAB_ENDPOINT}}/index.html#/dashboard",
-            "websiteUrl": "${{TAB_ENDPOINT}}/index.html#/dashboard",
+            "contentUrl": "${{TAB_ENDPOINT}}/index.html#/ChatMessage",
+            "websiteUrl": "${{TAB_ENDPOINT}}/index.html#/ChatMessage",
             "scopes": [
                 "personal"
             ]

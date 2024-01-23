@@ -9,15 +9,8 @@ import {
 } from "@fluentui/react-components";
 import { HashRouter as Router, Navigate, Route, Routes } from "react-router-dom";
 import { useTeamsUserCredential } from "@microsoft/teamsfx-react";
-import Privacy from "./Privacy";
-import TermsOfUse from "./TermsOfUse";
-import Tab from "./Tab";
 import { TeamsFxContext } from "./Context";
 import config from "./sample/lib/config";
-import Login from "./Login/login";
-import Dashboard from "./Screen/Dashboard/Dashboard";
-import { useEffect } from "react";
-import TeamMember from "./TabForms/TeamMember";
 import ChatMessage from "./Screen/Home/chatmessage";
 
 /**
@@ -40,7 +33,7 @@ export default function App() {
               ? teamsHighContrastTheme
               : {
                 ...teamsLightTheme,
-                colorNeutralBackground3: "#eeeeee",
+                //colorNeutralBackground3: "#eeeeee",
               }
         }
         style={{ background: tokens.colorNeutralBackground3 }}
@@ -49,14 +42,9 @@ export default function App() {
           {loading ? (
             <Spinner style={{ margin: 100 }} />
           ) : (
-            <Routes>
-              <Route path="/privacy" element={<Privacy />} />
-              <Route path="/termsofuse" element={<TermsOfUse />} />
+            <Routes>                         
+              <Route path="*" element={<Navigate to={"/ChatMessage"} />}></Route>
               <Route path="/ChatMessage" element={<ChatMessage />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/teammember" element={<TeamMember />}></Route>
-              <Route path="*" element={<Navigate to={"/Dashboard"} />}></Route>
-              <Route path="/Dashboard" element={<Dashboard />} />
             </Routes>
           )}
         </Router>

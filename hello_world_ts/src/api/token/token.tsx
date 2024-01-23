@@ -1,9 +1,34 @@
-//const { teamsUserCredential } = useContext(TeamsFxContext);
-// const access_token = useData(async () => {
-//     if (teamsUserCredential) {
-//         let token: any = teamsUserCredential.getToken("");
-//         return token;
-//     }
-// });
+export const Access_Token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjVCM25SeHRRN2ppOGVORGMzRnkwNUtmOTdaRSJ9.eyJhdWQiOiIzZGZkZDcyYi0xNjIwLTQ0MjktYjA3Yy0xYjYxNTQ0ZGI3YzEiLCJpc3MiOiJodHRwczovL2xvZ2luLm1pY3Jvc29mdG9ubGluZS5jb20vZWYwOWJiMjktOTY5OS00MTkzLTk1NGYtNDkwM2ZhZjVhZmNkL3YyLjAiLCJpYXQiOjE3MDYwMDE0OTUsIm5iZiI6MTcwNjAwMTQ5NSwiZXhwIjoxNzA2MDA5OTI5LCJhaW8iOiJBVVFBdS84VkFBQUE1RlBtS0ZtdlJ4SS9vUnNhT09JUzI5cEdBWEZ1QlhCY1JWc0V1Nit3ZUxnbkt3QjZ4OGtCUlhkdU9jZ3ZFcmwvTUd2SUdtZElWUkZtWDhaeklEd2gwUT09IiwiYXpwIjoiNWUzY2U2YzAtMmIxZi00Mjg1LThkNGItNzVlZTc4Nzg3MzQ2IiwiYXpwYWNyIjoiMCIsIm5hbWUiOiJQb29qYSBQYXJhc2hhciIsIm9pZCI6IjY4Y2I2YTBlLTVmOWEtNGQzNy1iNTM5LTRlNjgwYWIyZjM2OCIsInByZWZlcnJlZF91c2VybmFtZSI6InBwYXJhc2hhckBpbmZyYWJsb2suY29tIiwicmgiOiIwLkFSSUFLYnNKNzVtV2swR1ZUMGtELXZXdnpTdlhfVDBnRmlsRXNId2JZVlJOdDhFU0FCYy4iLCJzY3AiOiJhY2Nlc3NfYXNfdXNlciIsInN1YiI6IlVYMkp1UHpLX0pMbnlDdkFzcTdBLVhxSXNUM3BSaGJJY3NURnVHSHNGSmMiLCJ0aWQiOiJlZjA5YmIyOS05Njk5LTQxOTMtOTU0Zi00OTAzZmFmNWFmY2QiLCJ1dGkiOiJGclNXU2VtZ2gwR2o5LVlJT3VMUkFBIiwidmVyIjoiMi4wIn0.meGVOzM4bw1ykDvX_7LqHycFmLl2Yw23fVz0eGLyRBxIfwe-hDpte3AURgey7CeAAENm2HpvgFbnFpthKsc4Qs4YobYBES3JqFhZvj-WtAxGL3Rj8rc_QJWUxFS-W41OXRbsTym3dkOxWudUrmONC7Eb9QOOHcQ5whFVuiduMvUhHO1MQMYgQYBWE1-ZzektcaJgph7xk0Ml9S0urWZhogBOj96KJjcOfeIvd2ThqP-h8-0InpR8OLBYb-SMPL9WefWtTYXhLJreStJfVnJcq3UL1clM0x_2wafUmwzRMSa2lEd-legswJBlA2FbdcfIqYUG8pX3ByVYLDhYR4RExA"
 
-export const Access_Token = "eyJ0eXAiOiJKV1QiLCJub25jZSI6Ijc5UlliRjMtbUZrc2s3NjRjTWNEZzRwUlJDRGVOdHpscE1mTndjQXpkYUEiLCJhbGciOiJSUzI1NiIsIng1dCI6IjVCM25SeHRRN2ppOGVORGMzRnkwNUtmOTdaRSIsImtpZCI6IjVCM25SeHRRN2ppOGVORGMzRnkwNUtmOTdaRSJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTAwMDAtYzAwMC0wMDAwMDAwMDAwMDAiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC9lZjA5YmIyOS05Njk5LTQxOTMtOTU0Zi00OTAzZmFmNWFmY2QvIiwiaWF0IjoxNzA1OTg4MjI1LCJuYmYiOjE3MDU5ODgyMjUsImV4cCI6MTcwNjA3NDkyNSwiYWNjdCI6MCwiYWNyIjoiMSIsImFpbyI6IkFUUUF5LzhWQUFBQW9NelZYSUdKNmx3TUVESTRNQkcyUzh3OHhZTlQwc1VqZlIvT0pJdUZTRVdyWkgzYlJFMGxlZkZHMHlUbGVTUW4iLCJhbXIiOlsicHdkIl0sImFwcF9kaXNwbGF5bmFtZSI6IkdyYXBoIEV4cGxvcmVyIiwiYXBwaWQiOiJkZThiYzhiNS1kOWY5LTQ4YjEtYThhZC1iNzQ4ZGE3MjUwNjQiLCJhcHBpZGFjciI6IjAiLCJmYW1pbHlfbmFtZSI6IlBhcmFzaGFyIiwiZ2l2ZW5fbmFtZSI6IlBvb2phIiwiaWR0eXAiOiJ1c2VyIiwiaXBhZGRyIjoiMTIyLjE2MS41My42NiIsIm5hbWUiOiJQb29qYSBQYXJhc2hhciIsIm9pZCI6IjY4Y2I2YTBlLTVmOWEtNGQzNy1iNTM5LTRlNjgwYWIyZjM2OCIsInBsYXRmIjoiMyIsInB1aWQiOiIxMDAzMjAwMDlCQjlGQTI5IiwicmgiOiIwLkFSSUFLYnNKNzVtV2swR1ZUMGtELXZXdnpRTUFBQUFBQUFBQXdBQUFBQUFBQUFBU0FCYy4iLCJzY3AiOiJBUElDb25uZWN0b3JzLlJlYWQuQWxsIEFQSUNvbm5lY3RvcnMuUmVhZFdyaXRlLkFsbCBDaGF0LkNyZWF0ZSBDaGF0LlJlYWQgQ2hhdC5SZWFkQmFzaWMgQ2hhdC5SZWFkV3JpdGUgRGlyZWN0b3J5LlJlYWQuQWxsIERpcmVjdG9yeS5SZWFkV3JpdGUuQWxsIEdyb3VwLlJlYWQuQWxsIEdyb3VwLlJlYWRXcml0ZS5BbGwgTWFpbC5SZWFkQmFzaWMgb3BlbmlkIHByb2ZpbGUgU2l0ZXMuUmVhZC5BbGwgU2l0ZXMuUmVhZFdyaXRlLkFsbCBUYXNrcy5SZWFkIFRhc2tzLlJlYWRXcml0ZSBUZWFtLlJlYWRCYXNpYy5BbGwgVGVhbU1lbWJlci5SZWFkLkFsbCBVc2VyLlJlYWQgVXNlci5SZWFkLkFsbCBVc2VyLlJlYWRCYXNpYy5BbGwgVXNlci5SZWFkV3JpdGUgVXNlci5SZWFkV3JpdGUuQWxsIGVtYWlsIiwic2lnbmluX3N0YXRlIjpbImttc2kiXSwic3ViIjoiTUY5STBEbTBWY01uamJYUG5pQ1NiQ3c0R1NfUjZoZktYdDhUYXQ3Qm9NayIsInRlbmFudF9yZWdpb25fc2NvcGUiOiJOQSIsInRpZCI6ImVmMDliYjI5LTk2OTktNDE5My05NTRmLTQ5MDNmYWY1YWZjZCIsInVuaXF1ZV9uYW1lIjoicHBhcmFzaGFyQGluZnJhYmxvay5jb20iLCJ1cG4iOiJwcGFyYXNoYXJAaW5mcmFibG9rLmNvbSIsInV0aSI6Ik5CTUNXcnN0S1UydFYwNm84LWNBQUEiLCJ2ZXIiOiIxLjAiLCJ3aWRzIjpbImI3OWZiZjRkLTNlZjktNDY4OS04MTQzLTc2YjE5NGU4NTUwOSJdLCJ4bXNfY2MiOlsiQ1AxIl0sInhtc19zc20iOiIxIiwieG1zX3N0Ijp7InN1YiI6InBPSW9jOVBaZFF2UVY0MWIybW1XaDkzRWd5emNsaFFKZldaME0zU3RaNlkifSwieG1zX3RjZHQiOjE0MjQwNzYyMjV9.j9ip62yL_IEMhocPOHJf47DdGY6_2v1EEwzyD7dlPhrMdP2U8_0PNPEl1_Dzc3QA4snSKtwGyKWXS84zKJy6XnRek4d1AWphv6k_yg2L9SxWUG6FZCnbZvMzgPwzBMYpVzxaqe1MLC4jyjFQUt3TDNqPiJx35IcGKKI_kiKTCZ9QHAA2hgdr_m8CRXSbzGsduAeFoaCe-26C2JkDj_p1HVh5u3IWtD7uGKjTSImYlWes0ipMZY0pIO3LILD4pC3gTnJCaIwkbmj5j_7_GJPV0eY-RN2G55_E2c5EtqBjRF36m4Py8EC8zXnKHobpqkWIsj9ilqpiMY3Vto05-GjDJg"
+const axios = require('axios');
+
+const tenantId = 'ef09bb29-9699-4193-954f-4903faf5afcd';
+const clientId = '3dfdd72b-1620-4429-b07c-1b61544db7c1';
+const clientSecret = 'f38e6dab-f19b-47e2-8c8c-57e866a5944d';
+const scope = 'https://graph.microsoft.com/.default'; // Replace with your required scope
+
+export const getToken = async () => {
+    try {
+        //https://login.microsoftonline.com/ef09bb29-9699-4193-954f-4903faf5afcd/oauth2/v2.0/token
+        const tokenEndpoint = `https://login.microsoftonline.com/${tenantId}/oauth2/v2.0/token`;
+        const params = new URLSearchParams();
+        params.append('client_id', clientId);
+        params.append('scope', scope);
+        params.append('client_secret', clientSecret);
+        params.append('grant_type', 'client_credentials');
+        params.append('Access-Control-Allow-Origin','*');
+        const response = await axios.post(tokenEndpoint, params, {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Access-Control-Allow-Origin':'*'
+            }
+        });
+        console.log("Access Token api response",response)
+        const accessToken = response.data.access_token;
+        console.log('Access Token:', accessToken);
+        return accessToken;
+    } catch (error:any) {
+        console.error('Error:', error.message);
+        return null;
+    }
+};

@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Alert, Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Snackbar } from '@mui/material';
+import { Alert, Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Snackbar, Stack, Container } from '@mui/material';
 import { useData } from '@microsoft/teamsfx-react';
 import { useDispatch } from 'react-redux';
 import { get_all_teams } from '../../../api/msApi/teams';
 import { TeamsFxContext } from '../../Context';
 import { chat_with_team_member, get_all_teams_member, send_message_to_team_member } from '../../../api/msApi/member';
+import { getToken } from '../../../api/token/token';
 
 const ChatMessage = () => {
     const dispatch = useDispatch<any>();
@@ -27,6 +28,9 @@ const ChatMessage = () => {
         }
     });
     useEffect(() => {
+        console.clear()
+        let access_token = getToken();
+        console.log("access_token response api in chat compo=======", access_token)
         // dispatch(
         //     get_all_teams(data?.token, (response: any) => {
         //         if (response) {
@@ -119,79 +123,76 @@ const ChatMessage = () => {
         );
     };
     return (
-        <Box
-            component="form" noValidate autoComplete="off"
-            sx={{
-                '& .MuiTextField-root': { m: 1, width: '25ch' },
-            }}
-        >
-            <div>
-                <FormControl sx={{ m: 2, minWidth: 200 }}>
-                    <InputLabel id="demo-simple-select-label">Teams</InputLabel>
-                    <Select autoWidth
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        //value={age}
-                        label="Teams"
-                    //onChange={handleUserTeamChange}
-                    >
-                        {/* {userAllTeamsData.map((item: any) => (
+        <Container maxWidth="sm">
+            <Box sx={{ width: 400, height: 270, mt: 2, mb: 2, ml: 2, mr: 2 }} >
+                <Stack spacing={2} justifyItems={'center'}>
+                    <FormControl>
+                        <InputLabel id="demo-simple-select-label">Teams</InputLabel>
+                        <Select autoWidth
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            //value={age}
+                            label="Teams"
+                        //onChange={handleUserTeamChange}
+                        >
+                            {/* {userAllTeamsData.map((item: any) => (
                             <MenuItem key={item?.id} value={item}>
                                 {item?.displayName}
                             </MenuItem>
                         ))} */}
-                        <MenuItem key={"6df7b42c-0539-4ea9-9a0a-fd8f516c8a5e"} value={"6df7b42c-0539-4ea9-9a0a-fd8f516c8a5e"}>
-                            {"Infrablok Org"}
-                        </MenuItem>
-                    </Select>
-                </FormControl>
-                <FormControl sx={{ m: 2, minWidth: 200 }}>
-                    <InputLabel id="demo-simple-select-label">To</InputLabel>
-                    <Select autoWidth
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        //value={age}
-                        label="To"
-                        onChange={handleTeamMemberChange}
-                    >
-                        {allTeamMembers.map((item: any) => (
-                            <MenuItem key={item?.id} value={item}>
-                                {item?.displayName}
+                            <MenuItem key={"6df7b42c-0539-4ea9-9a0a-fd8f516c8a5e"} value={"6df7b42c-0539-4ea9-9a0a-fd8f516c8a5e"}>
+                                {"Infrablok Org"}
                             </MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
-            </div>
-            <div>
-                <TextField
-                    id="outlined-multiline-static"
-                    label="Message"
-                    multiline
-                    required
-                    value={toUserMessage}
-                    onChange={(event: any) => { setToUserMessage(event.target.value); }}
-                    placeholder="type your message....." />
-            </div>
-            <div>
-                <Button variant="contained" onClick={handleMessageSend}>Submit</Button>
-            </div>
-            <Box sx={{ width: 500 }}>
-                <Snackbar
-                    anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                    open={snackOpen}
-                    onClose={() => setSnackOpen(false)}
-                    autoHideDuration={2000}
-                >
-                    <Alert
+                        </Select>
+                    </FormControl>
+                    <FormControl >
+                        <InputLabel id="demo-simple-select-label">To</InputLabel>
+                        <Select autoWidth
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            //value={age}
+                            label="To"
+                            onChange={handleTeamMemberChange}
+                        >
+                            {allTeamMembers?.map((item: any) => (
+                                <MenuItem key={item?.id} value={item}>
+                                    {item?.displayName}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                </Stack>
+                <Stack spacing={2} mt={2}>
+                    <TextField
+                        id="outlined-multiline-static"
+                        label="Message"
+                        multiline
+                        required
+                        value={toUserMessage}
+                        onChange={(event: any) => { setToUserMessage(event.target.value); }}
+                        placeholder="type your message....." />
+                </Stack>
+                <Stack spacing={2} mt={2}>
+                    <Button variant="contained" onClick={handleMessageSend}>Submit</Button>
+                </Stack>
+                <Box sx={{ width: 500 }}>
+                    <Snackbar
+                        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                        open={snackOpen}
                         onClose={() => setSnackOpen(false)}
-                        severity="success"
-                        sx={{ width: "100%" }}
+                        autoHideDuration={2000}
                     >
-                        message sent successfully...!!
-                    </Alert>
-                </Snackbar>
+                        <Alert
+                            onClose={() => setSnackOpen(false)}
+                            severity="success"
+                            sx={{ width: "100%" }}
+                        >
+                            message sent successfully...!!
+                        </Alert>
+                    </Snackbar>
+                </Box>
             </Box>
-        </Box>
+        </Container>
     );
 }
 
