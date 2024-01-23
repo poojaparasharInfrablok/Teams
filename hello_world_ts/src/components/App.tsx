@@ -18,6 +18,7 @@ import Login from "./Login/login";
 import Dashboard from "./Screen/Dashboard/Dashboard";
 import { useEffect } from "react";
 import TeamMember from "./TabForms/TeamMember";
+import ChatMessage from "./Screen/Home/chatmessage";
 
 /**
  * The main app which handles the initialization and routing
@@ -51,7 +52,7 @@ export default function App() {
             <Routes>
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/termsofuse" element={<TermsOfUse />} />
-              <Route path="/tab" element={<Tab />} />
+              <Route path="/ChatMessage" element={<ChatMessage />} />
               <Route path="/login" element={<Login />} />
               <Route path="/teammember" element={<TeamMember />}></Route>
               <Route path="*" element={<Navigate to={"/Dashboard"} />}></Route>

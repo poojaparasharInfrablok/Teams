@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Box, Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
+import { Alert, Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Snackbar } from '@mui/material';
 import { useData } from '@microsoft/teamsfx-react';
 import { useDispatch } from 'react-redux';
 import { get_all_teams } from '../../../api/msApi/teams';
 import { TeamsFxContext } from '../../Context';
 import { chat_with_team_member, get_all_teams_member, send_message_to_team_member } from '../../../api/msApi/member';
+
 const ChatMessage = () => {
     const dispatch = useDispatch<any>();
     const { teamsUserCredential } = useContext(TeamsFxContext);
@@ -12,6 +13,7 @@ const ChatMessage = () => {
     // const [userAllTeamsData, setUserAllTeamsData] = useState([]);
     const [allTeamMembers, setAllTeamMembers] = useState([]);
     const [toUserMessage, setToUserMessage] = useState('');
+    const [snackOpen, setSnackOpen] = useState(false);
     const { data } = useData(async () => {
         if (teamsUserCredential) {
             const token = teamsUserCredential.getToken("");
@@ -104,7 +106,7 @@ const ChatMessage = () => {
                     }
                     dispatch(send_message_to_team_member(messageBody, chat_id, (msgresponse: any) => {
                         if (msgresponse) {
-                            console.log("message sent successfully!!!!!")
+                            setSnackOpen(true);
                         }
                         else {
                             console.log("api error===", msgresponse);
@@ -173,6 +175,22 @@ const ChatMessage = () => {
             <div>
                 <Button variant="contained" onClick={handleMessageSend}>Submit</Button>
             </div>
+            <Box sx={{ width: 500 }}>
+                <Snackbar
+                    anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                    open={snackOpen}
+                    onClose={() => setSnackOpen(false)}
+                    autoHideDuration={2000}
+                >
+                    <Alert
+                        onClose={() => setSnackOpen(false)}
+                        severity="success"
+                        sx={{ width: "100%" }}
+                    >
+                        message sent successfully...!!
+                    </Alert>
+                </Snackbar>
+            </Box>
         </Box>
     );
 }
