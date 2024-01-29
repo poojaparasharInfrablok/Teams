@@ -1,0 +1,51 @@
+{
+    "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.15/MicrosoftTeams.schema.json",
+    "manifestVersion": "1.15",
+    "version": "1.0.0",
+    "id": "aca346b1-c262-4185-8c5b-e0099591073e",
+    "packageName": "com.microsoft.teams.extension",
+    "developer": {
+        "name": "Teams App, Inc.",
+        "websiteUrl": "https://index.html#/privacy",
+        "privacyUrl": "https://index.html#/privacy",
+        "termsOfUseUrl": "https://index.html#/termsofuse"
+    },
+    "icons": {
+        "color": "color.png",
+        "outline": "outline.png"
+    },
+    "name": {
+        "short": "ChatTab${{APP_NAME_SUFFIX}}",
+        "full": "Full name for ChatTab"
+    },
+    "description": {
+        "short": "Short description of ChatTab",
+        "full": "Full description of ChatTab"
+    },
+    "accentColor": "#FFFFFF",
+    "bots": [],
+    "composeExtensions": [],
+    "configurableTabs": [],
+    "staticTabs": [
+        {
+            "entityId": "index",
+            "name": "Personal Tab",
+            "contentUrl": "https://index.html#/tab",
+            "websiteUrl": "https://index.html#/tab",
+            "scopes": [
+                "personal"
+            ]
+        }
+    ],
+    "permissions": [
+        "identity",
+        "messageTeamMembers"
+    ],
+    "validDomains": [
+        "miritech.com"
+    ],
+    "webApplicationInfo": {
+        "id": "2448d816-94b0-4c70-82b5-a639427929c5",
+        "resource": "api://miritech.com/2448d816-94b0-4c70-82b5-a639427929c5"
+    }
+}
