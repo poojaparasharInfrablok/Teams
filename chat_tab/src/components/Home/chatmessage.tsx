@@ -1,16 +1,16 @@
 import { useContext, useEffect, useState } from 'react'
 import { Alert, Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Snackbar, Stack, Container } from '@mui/material';
 import { useData } from '@microsoft/teamsfx-react';
-import { useDispatch } from 'react-redux';
 import { TeamsFxContext } from '../Context';
 import { getToken } from '../../api/token/token';
 import { chat_with_team_member, get_all_teams_member, send_message_to_team_member } from '../../api/msApi/member';
+import { get_all_teams } from '../../api/msApi/teams';
 
 const ChatMessage = (props: { showFunction?: boolean; environment?: string }) => {
    
     const { teamsUserCredential } = useContext(TeamsFxContext);
     const [toUserData, setToUserData] = useState<any>([]);
-    // const [userAllTeamsData, setUserAllTeamsData] = useState([]);
+     const [userAllTeamsData, setUserAllTeamsData] = useState([]);
     const [allTeamMembers, setAllTeamMembers] = useState([]);
     const [toUserMessage, setToUserMessage] = useState('');
     const [snackOpen, setSnackOpen] = useState(false);
@@ -28,49 +28,38 @@ const ChatMessage = (props: { showFunction?: boolean; environment?: string }) =>
     });
     useEffect(() => {
         console.clear()
-        // let access_token = getToken();
-        // console.log("access_token response api in chat compo=======", access_token)
-        // dispatch(
-        //     get_all_teams(data?.token, (response: any) => {
-        //         if (response) {
-        //             setUserAllTeamsData(response)
-        //         } else {
-        //             console.log("api error===", response);
-        //         }
-        //     })
-        // );
-        let defaultTeam = "6df7b42c-0539-4ea9-9a0a-fd8f516c8a5e"
-        get_all_teams_member(defaultTeam, (response: any) => {
-            if (response) {
-                setAllTeamMembers(response)
-            } else {
-                console.log("api error===", response);
-            }
-        })
-        // dispatch(
-        //     get_all_teams_member(defaultTeam, (response: any) => {
-        //         if (response) {
-        //             setAllTeamMembers(response)
-        //         } else {
-        //             console.log("api error===", response);
-        //         }
-        //     })
-        // );
+         let access_token = getToken();
+         console.log("access_token response api in chat compo=======", access_token)
+       
+            get_all_teams(data?.token, (response: any) => {
+                if (response) {
+                    setUserAllTeamsData(response)
+                } else {
+                    console.log("api error===", response);
+                }
+            })
+       
+        // let defaultTeam = "6df7b42c-0539-4ea9-9a0a-fd8f516c8a5e"
+        // get_all_teams_member(defaultTeam, (response: any) => {
+        //     if (response) {
+        //         setAllTeamMembers(response)
+        //     } else {
+        //         console.log("api error===", response);
+        //     }
+        // })    
     }, [data])
 
-    // const handleUserTeamChange = (event: any) => {
-    //     teamId =event.target.value?.id
-    //     let defaultTeam = "6df7b42c-0539-4ea9-9a0a-fd8f516c8a5e"
-    //     dispatch(            
-    //         get_all_teams_member(defaultTeam, (response: any) => {
-    //             if (response) {
-    //                 setAllTeamMembers(response)
-    //             } else {
-    //                 console.log("api error===", response);
-    //             }
-    //         })
-    //     );
-    // };
+    const handleUserTeamChange = (event: any) => {
+      var  teamId =event.target.value?.id
+        let defaultTeam = "6df7b42c-0539-4ea9-9a0a-fd8f516c8a5e"              
+            get_all_teams_member(teamId, (response: any) => {
+                if (response) {
+                    setAllTeamMembers(response)
+                } else {
+                    console.log("api error===", response);
+                }
+            })     
+    };
     const handleTeamMemberChange = (event: any) => {
         setToUserData(event.target.value)
         console.log("event.target.value=====", event.target.value)
@@ -139,16 +128,16 @@ const ChatMessage = (props: { showFunction?: boolean; environment?: string }) =>
                                 id="demo-simple-select"
                                 //value={age}
                                 label="Teams"
-                            //onChange={handleUserTeamChange}
+                            onChange={handleUserTeamChange}
                             >
-                                {/* {userAllTeamsData.map((item: any) => (
+                                {userAllTeamsData.map((item: any) => (
                             <MenuItem key={item?.id} value={item}>
                                 {item?.displayName}
                             </MenuItem>
-                        ))} */}
-                                <MenuItem key={"6df7b42c-0539-4ea9-9a0a-fd8f516c8a5e"} value={"6df7b42c-0539-4ea9-9a0a-fd8f516c8a5e"}>
+                        ))}
+                                {/* <MenuItem key={"6df7b42c-0539-4ea9-9a0a-fd8f516c8a5e"} value={"6df7b42c-0539-4ea9-9a0a-fd8f516c8a5e"}>
                                     {"Infrablok Org"}
-                                </MenuItem>
+                                </MenuItem> */}
                             </Select>
                         </FormControl>
                         <FormControl >

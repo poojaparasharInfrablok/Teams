@@ -6,7 +6,7 @@ export const get_all_teams = (access_token: any, callback: Function) =>
         const graphClient = Client.init({
             authProvider: (done: any) => {
                 // Use your OAuth2 token here
-                done(null, Access_Token);
+                done(null, access_token);
             }
         });
         graphClient.api(`/me/joinedTeams`).get().then((response: any) => {
